@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Quiz</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <main class="text-center m-5">
+        <header>
+            <h1 class="m-5 text-purple-900 font-bold text-5xl mb-14">INTERACTIVE QUIZ</h1>
+        </header>
+        <section id="section">
+            <form class="flex flex-col gap-10 text-xl">
+                <div class="flex flex-col gap-5">
+                    <p>
+                        1. What is the capital of France?
+                    </p>
+                    <div class="flex gap-5 justify-center items-center">
+                        <diV class="flex items-center gap-2">
+                            <input type="radio" value="Paris" name="Q1"><label>Paris</label>
+                        </diV>
+                        <diV class="flex items-center gap-2">
+                            <input type="radio" value="London" name="Q1"><label>London</label>
+                        </diV>
+                        <diV class="flex items-center gap-2">
+                            <input type="radio" value="Berlin" name="Q1"><label>Berlin</label>
+                        </diV> 
+                    </div>
+                </div>
+                <div class="flex flex-col gap-5">
+                    <p>
+                        2. Cricket is originated from which country?
+                    </p>
+                    <div class="flex gap-5 justify-center items-center">
+                        <diV class="flex items-center gap-2">
+                            <input type="radio" value="Australia" name="Q2"><label>Australia</label>
+                        </diV>
+                        <diV class="flex items-center gap-2">
+                            <input type="radio" value="Newzealand" name="Q2"><label>Newzealand</label>
+                        </diV>
+                        <diV class="flex items-center gap-2">
+                            <input type="radio" value="England" name="Q2"><label>England</label>
+                        </diV> 
+                    </div>
+                </div>
+                <div class="flex flex-col gap-5">
+                    <p>
+                        3. Which country is first celebrate New year?
+                    </p>
+                    <div class="flex gap-5 justify-center items-center">
+                        <diV class="flex items-center gap-2">
+                            <input type="radio" value="Japan" name="Q3"><label>Japan</label>
+                        </diV>
+                        <diV class="flex items-center gap-2">
+                            <input type="radio" value="Newzealand" name="Q3"><label>Newzealand</label>
+                        </diV>
+                        <diV class="flex items-center gap-2">
+                            <input type="radio" value="America (USA)" name="Q3"><label>America (USA)</label>
+                        </diV> 
+                    </div>
+                </div>
+                <div>
+                    <button id="submit" class="bg-blue-300 text-2xl p-3 rounded-md font-extrabold" type="submit">Submit</button>
+                </div>
+            </form>
+        </section>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>
