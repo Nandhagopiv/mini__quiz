@@ -116,6 +116,7 @@ function pageLoad(path) {
                         if (selectList[i] == selectedQuestion[i].correct) {
                             mark = mark + 1
                         }
+                        console.log(selectList[i] == selectedQuestion[i].correct);
                     }
                     pageLoad("result.html")
                 }
