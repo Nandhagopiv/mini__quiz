@@ -65,7 +65,8 @@
 
 .quizSection {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .quizSection main {
@@ -87,6 +88,13 @@
     height: 20px;
 }
 
+.quizSection h2{
+    color: darkred;
+    position: fixed;
+    right: 5px;
+    top: 5px;
+}
+
 .quizSection button {
     padding: 10px;
     border-radius: 10px;
@@ -95,6 +103,12 @@
     font-weight: bolder;
     font-size: 24px;
     font-family: "Poppins", sans-serif;
+}
+
+.quizButtons{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .resultPage h1 {
@@ -128,6 +142,11 @@
 
 .answerPage h2 {
     font-size: 56px;
+    margin-bottom: 25px;
+}
+
+.answerPage p {
+    font-size: 24px;
     margin-bottom: 25px;
 }
 
@@ -165,7 +184,7 @@
     .quizSection main {
         margin: 15px;
         margin-top: 100px;
-        align-items: flex-start;
+        align-items: center;
     }
 
     .resultPage{

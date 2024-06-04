@@ -4,6 +4,9 @@ const totalQuestionCount = 10
 var mark = 0
 var currentindex = 0
 var userDetails = []
+var selectList = []
+var checkedInput = 0
+var timeset = null
 
 function selQuestion() {
     let lottedQuestion = allQuestions.sort(() => {
@@ -49,6 +52,33 @@ function pageLoad(path) {
         if (path == "quiz.html") {
             selQuestion()
             showquestion()
+            function startTimer(duration) {
+                var timer = duration, minutes, seconds;
+                document.getElementById("timerBox").textContent = `Time out in: 00 : 00`
+                timeset = setInterval(function () {
+                    minutes = parseInt(timer / 60, 10);
+                    seconds = parseInt(timer % 60, 10);
+
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                    document.getElementById("timerBox").textContent = `Time out in: ${minutes} : ${seconds}`
+
+                    if (--timer < 0) {
+                        if (--timer < 0) {
+                            clearInterval(timeset)
+                        }
+                        for (let i = 0; i < selectList.length; i++) {
+                            if (selectList[i] == selectedQuestion[i].correct) {
+                                mark = mark + 1
+                            }
+                        }
+                        pageLoad("result.html")
+                    }
+                }, 1000);
+            }
+
+            startTimer(1 * 60);
 
             document.getElementById("quizNext").addEventListener("click", (event) => {
 
@@ -56,13 +86,22 @@ function pageLoad(path) {
                 for (let index = 0; index < ansList.length; index++) {
                     if (ansList[index].checked) {
                         if (ansList[index].value == selectedQuestion[currentindex].correct) {
-                            mark = mark + 1
+                            selectList.push(ansList[index].value)
+                        } else {
+                            selectList.push(ansList[index].value)
                         }
-                    }                                  
+                        checkedInput = 1
+                    }
                 }
 
+                if (checkedInput == 0) {
+                    selectList.push("-1")
+                }
+
+                checkedInput = 0
+
                 currentindex = currentindex + 1
-                
+
                 if (currentindex >= totalQuestionCount - 1) {
                     event.target.innerText = "Submit"
                     event.target.style.backgroundColor = "#3DA76C"
@@ -72,6 +111,12 @@ function pageLoad(path) {
                     showquestion()
                 }
                 if (currentindex >= totalQuestionCount) {
+                    clearInterval(timeset)
+                    for (let i = 0; i < selectList.length; i++) {
+                        if (selectList[i] == selectedQuestion[i].correct) {
+                            mark = mark + 1
+                        }
+                    }
                     pageLoad("result.html")
                 }
             })
@@ -83,21 +128,45 @@ function pageLoad(path) {
                     document.getElementById("quizNext").style.color = "black"
                 }
                 currentindex = currentindex - 1
+                selectList.pop()
                 showquestion()
             })
         }
 
         if (path == "result.html") {
-            document.getElementById("resultInfo").textContent = `Hello, ${userDetails.userName}, You have scored ${mark} out of ${totalQuestionCount} and you will also get updates on your mail (${userDetails.userEmail})`
-            document.getElementById("result__btn").addEventListener("click",function(){
+            document.getElementById("resultInfo").textContent = `Hello, ${userDetails.userName}, You have scored ${mark} / ${totalQuestionCount}`
+            document.getElementById("result__btn").addEventListener("click", function () {
                 pageLoad("answer.html")
             })
         }
 
         if (path === "answer.html") {
             var html = "";
-            selectedQuestion.forEach(function(data, index) {
-                html += `<h1>${index+1}. ${data.question}</h1><h4>Correct Answer: ${data.answers[data.correct]}</h4>`;
+            var optionName = " "
+            var sListCount = 0
+            selectedQuestion.forEach(function (dt, index) {
+                html += `<h1>${index + 1}. ${dt.question}</h1>
+                <p>${dt.answers.map((data, idx) => {
+                    var col = "black"
+                    if (selectList[sListCount] == idx) {
+                        col = "red"
+                    }
+                    if (dt.correct == idx) {
+                        col = "lightgreen"
+                    }
+                    if (idx == 0) {
+                        optionName = "a."
+                    } else if (idx == 1) {
+                        optionName = "b."
+                    } else if (idx == 2) {
+                        optionName = "c."
+                    } else {
+                        optionName = "d."
+                    }
+                    return `<p style='color:${col}'>${optionName} ${data}</p>`
+                }).join(" ")}</p>
+                <h4>Correct Answer: ${dt.answers[dt.correct]}</h4>`;
+                sListCount = sListCount + 1
             });
             document.getElementById("showans").innerHTML = "<h2>Correct Answers</h2>" + html;
         }
